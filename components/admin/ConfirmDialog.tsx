@@ -1,0 +1,3 @@
+"use client";
+import Modal from "./Modal";
+export default function ConfirmDialog({open,title,description,busy=false,onCancel,onConfirm}:{open:boolean;title:string;description:string;busy?:boolean;onCancel:()=>void;onConfirm:()=>void}){return <Modal open={open} title={title} onClose={()=>{if(!busy)onCancel();}}><p className="max-w-xl text-sm leading-relaxed text-muted">{description}</p><div className="mt-6 flex flex-wrap justify-end gap-3"><button type="button" disabled={busy} autoFocus onClick={onCancel} className="btn btn-ghost">Batal</button><button type="button" disabled={busy} onClick={onConfirm} className="btn btn-brand disabled:opacity-60">{busy?"Memproses…":"Ya, hapus"}</button></div></Modal>;}

@@ -1,0 +1,11 @@
+# Instruksi Agent
+- Proyek: CeritaKita (Next.js, Tailwind, Supabase, deploy Vercel), UI Bahasa Indonesia.
+- Warna dan gaya mengikuti app/globals.css dan tailwind.config.ts.
+- Spesifikasi lengkap ada di docs/BRIEF.md. Baca HANYA section yang kusebut, jangan baca seluruhnya.
+- Kerjakan hanya yang diminta, ubah file seminimal mungkin, jangan refactor di luar tugas.
+- Jangan jalankan build/lint kecuali diminta. Balasan akhir maksimal 5 baris.
+- Jika tugas butuh perubahan database, buat SQL idempotent (if not exists, drop policy if exists, create or replace) di supabase/migrations/NNNN_nama.sql.
+- Salin isi SQL baru itu ke supabase/NEXT_MIGRATION.sql (timpa isinya, hanya perubahan terbaru) supaya saya bisa langsung menyalin ke Supabase SQL Editor.
+- Tambahkan juga ke supabase/ALL_IN_ONE.sql.
+- Di balasan akhir, tulis "SQL: jalankan supabase/NEXT_MIGRATION.sql" jika ada, atau "SQL: tidak perlu".
+- Jangan pernah menulis atau meminta key.

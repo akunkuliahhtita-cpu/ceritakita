@@ -1,0 +1,4 @@
+import Image from "next/image";
+import LoginForm from "./LoginForm";
+export const metadata={title:"Masuk Admin"};
+export default function AdminLogin(){return <main className="flex min-h-screen items-center justify-center bg-gradient-to-br from-peach via-blush to-lilac p-5"><section className="w-full max-w-md rounded-[32px] border border-white bg-white p-7 shadow-soft sm:p-10"><div className="mb-8 flex items-center gap-3 text-lg font-semibold text-purple-800"><Image src="/logo-mark.png" alt="" width={38} height={38}/>CeritaKita<span className="ml-auto rounded-full bg-lilac px-3 py-1 text-[10px] tracking-widest">ADMIN</span></div><h1 className="text-2xl font-semibold">Masuk ke ruang admin</h1><p className="mt-2 text-sm leading-relaxed text-muted">Kelola konten dan layanan CeritaKita dengan akun adminmu.</p><LoginForm/></section></main>;}

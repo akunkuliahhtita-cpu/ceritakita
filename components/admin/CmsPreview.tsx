@@ -1,0 +1,9 @@
+"use client";
+import {useState} from "react";
+import {createPortal} from "react-dom";
+import CmsLayout,{type CmsContext} from "@/components/cms/CmsRenderer";
+import type {PageBlock} from "@/lib/cms";
+export default function CmsPreview({blocks,context,home}:{blocks:PageBlock[];context:CmsContext;home:boolean}){
+ const [body,setBody]=useState<HTMLElement|null>(null),[mode,setMode]=useState("responsive");
+ return <div><div role="group" aria-label="Ukuran preview" className="mb-3 flex flex-wrap gap-2">{[["responsive","Responsif"],["desktop","Desktop"],["mobile","Mobile"]].map(([value,label])=><button key={value} type="button" aria-pressed={mode===value} onClick={()=>setMode(value)} className={`btn text-xs ${mode===value?"btn-brand":"btn-ghost"}`}>{label}</button>)}</div><div className="overflow-auto rounded-[28px] border border-[#EADFF2] bg-lilac/30"><iframe title="Preview halaman langsung" srcDoc="<!doctype html><html lang='id'><head></head><body></body></html>" onLoad={e=>{const frame=e.currentTarget.contentDocument;if(!frame)return;const base=frame.createElement("base");base.href=location.origin+"/";frame.head.append(base);document.querySelectorAll('link[rel="stylesheet"],style').forEach(node=>frame.head.append(node.cloneNode(true)));frame.documentElement.className=document.documentElement.className;frame.body.className=document.body.className;setBody(frame.body);}} className="block h-[70vh] max-w-none border-0" style={{width:mode==="desktop"?1100:mode==="mobile"?375:"100%",minWidth:mode==="desktop"?1100:mode==="mobile"?375:0}}/>{body&&createPortal(<div onClickCapture={e=>{const target=e.target as Element;if(typeof target.closest==="function"&&target.closest("a"))e.preventDefault();}}><CmsLayout blocks={blocks} context={{...context,preview:true}} home={home}/></div>,body)}</div></div>;
+}

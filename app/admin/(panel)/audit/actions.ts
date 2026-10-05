@@ -1,0 +1,5 @@
+"use server";
+import {requireAdmin} from "@/lib/admin";
+import {adminService} from "@/lib/admin-service";
+import {validAuditFilters,PAGE_SIZE,type AuditRow,type AuditFilters} from "@/lib/admin-operations";
+export async function loadAdminAudit(filters:AuditFilters){const {user}=await requireAdmin();if(!validAuditFilters(filters))return {rows:[] as AuditRow[],total:0,actions:[] as string[],error:'Filter audit tidak valid. Periksa rentang tanggal.'};try{const {data,error}=await adminService().rpc('admin_audit_list',{actor:user.id,search_value:filters.search.trim(),action_filter:filters.action,start_date:filters.from||null,end_date:filters.to||null,page_number:filters.page,page_size:PAGE_SIZE});if(error)return {rows:[] as AuditRow[],total:0,actions:[] as string[],error:'Audit belum bisa dimuat. Periksa migration dan layanan server.'};return {rows:(data?.rows??[]) as AuditRow[],total:Number(data?.total??0),actions:(data?.actions??[]) as string[],error:null};}catch{return {rows:[] as AuditRow[],total:0,actions:[] as string[],error:'Layanan audit server belum tersedia.'};}}

@@ -1,0 +1,1 @@
+export default function StatusBadge({active,label}:{active:boolean;label?:string}){return <span className={`inline-flex rounded-full px-3 py-1 text-xs ${active?"bg-sage text-green-800":"bg-lilac text-purple-800"}`}>{label??(active?"Aktif":"Nonaktif")}</span>;}

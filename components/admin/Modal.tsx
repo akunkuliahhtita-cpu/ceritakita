@@ -1,0 +1,7 @@
+"use client";
+import {useEffect,useId,useRef,type ReactNode} from "react";
+export default function Modal({open,title,onClose,children}:{open:boolean;title:string;onClose:()=>void;children:ReactNode}){
+ const ref=useRef<HTMLDialogElement>(null);const id=useId();const close=useRef(onClose);close.current=onClose;
+ useEffect(()=>{const dialog=ref.current;if(!dialog)return;if(open){const previous=document.activeElement;dialog.showModal();const overflow=document.body.style.overflow;document.body.style.overflow="hidden";return()=>{dialog.close();document.body.style.overflow=overflow;if(previous instanceof HTMLElement)previous.focus();};}dialog.close();},[open]);
+ return <dialog ref={ref} aria-labelledby={id} onCancel={e=>{e.preventDefault();close.current();}} onClick={e=>{if(e.target===ref.current){const r=ref.current.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)close.current();}}} className="w-[calc(100%-2rem)] max-w-4xl rounded-[28px] border-0 bg-white p-5 text-ink shadow-soft backdrop:bg-purple-800/40 sm:p-7"><div className="mb-5 flex items-center justify-between gap-4"><h2 id={id} className="text-xl font-medium">{title}</h2><button type="button" onClick={()=>close.current()} aria-label="Tutup dialog" className="grid h-10 w-10 place-items-center rounded-full bg-lilac text-xl focus-visible:outline-purple-600">×</button></div>{open&&children}</dialog>;
+}
